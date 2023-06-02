@@ -1,18 +1,14 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
-import useOutsideClick from '@/hooks/useClickOutside';
+import useClickOutside from '@/hooks/useClickOutside';
 import arrowDown from '@/assets/icon-arrow-down.svg';
 
 export default function Filter() {
 	const [isShowing, setIsShowing] = useState<boolean>(false);
-	const componentRef = useRef<HTMLDivElement>(null);
 
+	const componentRef = useClickOutside(() => setIsShowing(false));
 	const handleOnClick = () => setIsShowing(!isShowing);
-
-	useOutsideClick(componentRef.current, () => {
-		setIsShowing(false);
-	});
 
 	return (
 		<div ref={componentRef} className="relative pr-5">
