@@ -1,0 +1,19 @@
+name: Pull request
+
+on: [pull_request]
+
+jobs:
+    tests:
+        runs_on: ubuntu_latest
+
+        strategy:
+            matrix:
+                node_version: [18.0.0]
+
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node_version }}
+            - run: npm install
+            - run: npm run test
