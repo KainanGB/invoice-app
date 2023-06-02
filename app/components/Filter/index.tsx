@@ -6,16 +6,16 @@ import arrowDown from '@/assets/icon-arrow-down.svg';
 
 export default function Filter() {
 	const [isShowing, setIsShowing] = useState<boolean>(false);
-	const componentRef = useRef();
+	const componentRef = useRef<HTMLDivElement>(null);
 
 	const handleOnClick = () => setIsShowing(!isShowing);
 
-	useOutsideClick(componentRef.current!, () => {
+	useOutsideClick(componentRef.current, () => {
 		setIsShowing(false);
 	});
 
 	return (
-		<div ref={componentRef as any} className="relative pr-5">
+		<div ref={componentRef} className="relative pr-5">
 			<button className="flex items-center" onClick={handleOnClick}>
 				<p className="mr-3 text-white font-medium">Filter</p>
 				<Image src={arrowDown} alt="filter-toggle-arrow" />
