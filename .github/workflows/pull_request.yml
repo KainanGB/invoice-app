@@ -4,11 +4,11 @@ on: [pull_request]
 
 jobs:
     tests:
-        runs_on: ubuntu_latest
+        runs-on: ubuntu_latest
 
         strategy:
             matrix:
-                node_version: [18.0.0]
+                node-version: [18.0.0]
 
         steps:
             - uses: actions/checkout@v3
