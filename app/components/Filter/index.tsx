@@ -26,7 +26,7 @@ export default function Filter() {
 	return (
 		<div ref={componentRef} className="relative pr-5">
 			<button className="flex items-center" onClick={handleToggleSelect}>
-				<p className="mr-3 text-white font-medium">Filter</p>
+				<p className="mr-3 text-white font-medium text-sm">Filter</p>
 				<Image src={arrowImage} alt="filter-toggle-arrow" />
 			</button>
 
