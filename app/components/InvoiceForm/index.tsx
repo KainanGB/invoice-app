@@ -72,7 +72,7 @@ export default function InvoiceForm() {
 					Go Back
 				</button>
 
-				{!isShowing && !isFetching && (
+				{!isShowing && !isFetching ? (
 					<>
 						<h1 className="text-white text-2xl font-bold mb-6">
 							{formType === 'edit' ? `Edit #${id}` : 'New Invoice'}
@@ -289,6 +289,8 @@ export default function InvoiceForm() {
 							</div>
 						</form>
 					</>
+				) : (
+					<Skeleton />
 				)}
 			</div>
 		)
