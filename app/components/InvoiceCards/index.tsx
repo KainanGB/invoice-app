@@ -82,7 +82,7 @@ export default function InvoiceCards() {
 								<span className="text-light-gray">
 									{formatDate(item.paymentDue)}
 								</span>
-								<span className="font-bold ">{formatCurrency(item.total)}</span>
+								<span className="font-bold ">{formatCurrency(+item.total)}</span>
 							</div>
 
 							<InvoiceStatusLabel status={item.status} />
