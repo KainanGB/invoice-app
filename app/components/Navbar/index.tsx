@@ -9,7 +9,7 @@ export default function Navbar() {
 	return (
 		<nav className="flex w-screen  bg-background-dark1">
 			<div className="flex justify-between w-full">
-				<Image src={headerLogo} height={80} alt="App logo" />
+				<Image src={headerLogo} height={70} alt="App logo" />
 				<button className="self-center mr-6">
 					<Image src={themeToggle} alt="Toggle dark mode" />
 				</button>

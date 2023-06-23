@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import InvoiceCard from '.';
+import InvoiceCards from '.';
 
 describe('InvoiceCard', () => {
-	render(<InvoiceCard />);
+	render(<InvoiceCards />);
 
 	it('should be in the document', () => {
-		const element = screen.getByText('InvoiceCard');
+		const element = screen.getByText('Paid');
 
 		expect(element).toBeInTheDocument();
 	});
