@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import headerLogo from '@/assets/header-logo.svg';
 import themeToggle from '@/assets/icon-sun.svg';
@@ -7,7 +6,7 @@ import profileIcon from '@/assets/logo.svg';
 
 export default function Navbar() {
 	return (
-		<nav className="flex w-screen  bg-background-dark1">
+		<nav className="flex w-full bg-background-dark1">
 			<div className="flex justify-between w-full">
 				<Image src={headerLogo} height={70} alt="App logo" />
 				<button className="self-center mr-6">

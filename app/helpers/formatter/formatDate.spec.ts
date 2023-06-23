@@ -1,4 +1,4 @@
-import formatDate from './formatDate';
+import { formatDate } from './formatDate';
 
 test('should have correct output after format', () => {
 	const output = 'Jun 9, 2023';

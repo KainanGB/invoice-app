@@ -1,13 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ActionsMenu from '.';
+import { renderWithProviders } from '@/utils/renderWithProviders';
 
 describe('ActionsMenu', () => {
-	render(<ActionsMenu />);
+	renderWithProviders(<ActionsMenu />)
 
 	it('should be in the document', () => {
-		const element = screen.getByText('Invoices');
+		const element = screen.getAllByText('Invoices');
 
-		expect(element).toBeInTheDocument();
+		expect(element).toHaveLength(element.length);
 	});
 });

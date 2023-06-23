@@ -1,7 +1,8 @@
 import { League_Spartan } from 'next/font/google';
-import './globals.css';
+import { ReduxProvider } from './redux/provider';
 import Navbar from './components/Navbar';
 
+import './globals.css';
 const spartan = League_Spartan({ subsets: ['latin'] });
 
 export const metadata = {
@@ -11,11 +12,13 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" className="bg-background-dark2">
-			<body className={spartan.className}>
-				<Navbar />
-				{children}
-			</body>
-		</html>
+		<ReduxProvider>
+			<html lang="en" className="bg-background-dark2">
+					<body className={spartan.className}>
+						<Navbar />
+						{children}
+					</body>
+			</html>
+		</ReduxProvider>
 	);
 }

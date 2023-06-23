@@ -1,10 +1,8 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
-	content: [
-		'./pages/**/*.{js,ts,jsx,tsx,mdx}',
-		'./components/**/*.{js,ts,jsx,tsx,mdx}',
-		'./app/**/*.{js,ts,jsx,tsx,mdx}',
-	],
+	content: ['./app/**/*.{js,ts,jsx,tsx}', './app/components/**/*.{js,ts,jsx,tsx}'],
+	safelist: [{ pattern: /-+/ }],
 	theme: {
 		colors: {
 			'light-purple': '#7b5cfa',

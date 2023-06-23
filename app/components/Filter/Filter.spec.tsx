@@ -1,11 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Filter from '.';
+import { renderWithProviders } from '@/utils/renderWithProviders';
 
 jest.mock('@/hooks/useClickOutside');
 
 describe('Filter', () => {
-	const setup = () => render(<Filter />);
+	
+	const setup = () => renderWithProviders(<Filter />);
 	let button: HTMLButtonElement;
 
 	it('should be showing filters', () => {
