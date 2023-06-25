@@ -1,8 +1,6 @@
 'use client';
-import { useFieldArray, useForm, Controller } from 'react-hook-form';
+import { useFieldArray, useForm, Controller, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import InvoiceInput from '../InvoiceInput';
-import InvoiceSelect from '../InvoiceSelect';
 import { createInvoiceFormSchema, invoiceSchemaData } from '@/types/schema';
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import Image from 'next/image';
@@ -15,20 +13,17 @@ import {
 	useGetInvoiceQuery,
 } from '@/redux/features/invoice-api-slice';
 import Skeleton from '../Skeleton';
+import { Input } from '../Input/Input';
+import { InputSelect } from '../InputSelect/InputSelect';
 
 export default function InvoiceForm() {
+	const dispatch = useAppDispatch();
+	const { formType, id } = useAppSelector(state => state.invoiceSelect);
+
 	const [createNewInvoice] = useCreateNewInvoiceMutation({
 		fixedCacheKey: 'shared-update-invoices',
 	});
-	const dispatch = useAppDispatch();
-	const {
-		register,
-		handleSubmit,
-		control,
-		formState: { errors },
-		reset,
-		setValue,
-	} = useForm<invoiceSchemaData>({
+	const { handleSubmit, control, reset } = useForm<invoiceSchemaData>({
 		resolver: zodResolver(createInvoiceFormSchema),
 		defaultValues: {
 			items: [
@@ -46,8 +41,6 @@ export default function InvoiceForm() {
 		control,
 		name: 'items',
 	});
-
-	const { formType, id } = useAppSelector(state => state.invoiceSelect);
 
 	const { data: single, isFetching } = useGetInvoiceQuery({ id }, { skip: formType === 'new' });
 
@@ -82,166 +75,92 @@ export default function InvoiceForm() {
 						})}
 						className="text-light-gray w-full "
 					>
-						<h1 className="text-light-purple mb-2">Bill From</h1>
+						<h1 className="text-light-purple mb-2 text-xl">Bill From</h1>
 
-						<Controller
-							control={control}
-							name="items"
-							render={({ field: { onChange, onBlur, value, ref } }) => {
-								// setValue('items.0.price', value);
-								return (
-									<input
-										onChange={e =>
-											onChange(
-												setValue('items.0.price', parseInt(e.target.value))
-											)
-										}
-										name="items[0].price"
-									/>
-								);
-							}}
-						/>
-
-						<InvoiceInput
-							displayName="Street Address"
+						<Input
 							name="adress.street"
-							errors={errors}
-							register={register}
+							displayName="Street Address"
+							control={control}
 						/>
-						<div className="flex items-center justify-between w-full gap-4">
-							<InvoiceInput
-								displayName="City"
-								name="adress.city"
-								errors={errors}
-								register={register}
-							/>
 
-							<InvoiceInput
-								displayName="Post Code"
+						<div className="flex items-center justify-between w-full gap-4">
+							<Input name="adress.city" displayName="City" control={control} />
+
+							<Input
 								name="adress.postCode"
-								errors={errors}
-								register={register}
+								displayName="Post Code"
+								control={control}
 							/>
 						</div>
-						<InvoiceInput
-							displayName="Country"
-							name="adress.country"
-							errors={errors}
-							register={register}
-						/>
+
+						<Input name="adress.country" displayName="Country" control={control} />
 
 						<h1 className="text-light-purple mb-2">Bill to</h1>
-						<InvoiceInput
-							displayName="Client's Name"
-							name="client.name"
-							errors={errors}
-							register={register}
-						/>
-						<InvoiceInput
-							displayName="Client's Email"
-							name="client.email"
-							errors={errors}
-							register={register}
-						/>
-						<InvoiceInput
-							displayName="Street Address"
+
+						<Input name="client.name" displayName="Clint's Name" control={control} />
+
+						<Input name="client.email" displayName="Clint's Email" control={control} />
+
+						<Input
 							name="client.street"
-							errors={errors}
-							register={register}
+							displayName="Street Address"
+							control={control}
 						/>
 
 						<div className="flex items-center justify-between w-full gap-4">
-							<InvoiceInput
-								displayName="City"
-								name="client.city"
-								errors={errors}
-								register={register}
-							/>
-
-							<InvoiceInput
+							<Input name="client.city" displayName="City" control={control} />
+							<Input
+								name="client.postCode"
 								displayName="Post Code"
-								name={'client.postCode'}
-								errors={errors}
-								register={register}
+								control={control}
 							/>
 						</div>
-						<InvoiceInput
-							displayName="Country"
-							name={'client.country'}
-							errors={errors}
-							register={register}
-						/>
-
-						<InvoiceInput
-							displayName="Invoice Date"
+						<Input name="client.country" displayName="Country" control={control} />
+						<Input
 							name="client.invoiceDate"
-							errors={errors}
-							register={register}
+							displayName="Invoice Date"
+							control={control}
 						/>
-
-						<InvoiceSelect
-							displayName="Payment Terms"
+						<InputSelect
 							name="client.paymentTerm"
-							errors={errors}
-							register={register}
+							displayName="Payment Terms"
+							control={control}
 						/>
 
-						<InvoiceInput
-							displayName="Project / Description"
+						<Input
 							name="client.description"
-							errors={errors}
-							register={register}
+							displayName="Project / Description"
+							control={control}
 						/>
 
 						<h1 className="text-light-purple mb-2">Item List</h1>
 						{fields.map((field, index) => {
 							return (
 								<div className="flex flex-col flex-wrap" key={field.id}>
-									<InvoiceInput
-										displayName={`Item Name`}
-										name={`items[${index}].name`}
-										errors={errors}
-										register={register}
-									/>
-
-									<Controller
-										name={`items.${index}.quantity`}
+									<Input
+										name={`items.${index}.name`}
+										displayName="Item Name"
 										control={control}
-										defaultValue={field.quantity} // make sure to set up defaultValues
-										render={({ field: { onChange } }) => (
-											<input
-												onChange={e =>
-													onChange(
-														setValue(
-															`items.${index}.quantity`,
-															parseInt(e.target.value)
-														)
-													)
-												}
-											/>
-										)}
 									/>
 
 									<div className="flex items-center justify-between w-full gap-4">
-										<InvoiceInput
-											displayName="Qty."
-											name={`items[${index}].quantity`}
-											errors={errors}
-											register={register}
+										<Input
+											name={`items.${index}.quantity`}
+											displayName="Quantity"
+											control={control}
 										/>
 
-										<InvoiceInput
+										<Input
+											name={`items.${index}.price`}
 											displayName="Price"
-											name={`items[${index}].price`}
-											errors={errors}
-											register={register}
+											control={control}
 										/>
 
-										<InvoiceInput
+										<Input
+											name={`items.${index}.total`}
 											displayName="Total"
-											name={`items[${index}].total`}
-											errors={errors}
-											register={register}
+											control={control}
+											readonly={true}
 										/>
 
 										<button
@@ -258,25 +177,28 @@ export default function InvoiceForm() {
 											/>
 										</button>
 									</div>
+									<button
+										className="w-full justify-center mb-4 flex items-center bg-background-dark1 rounded-full py-3 text-light-gray font-bold text-sm"
+										onClick={() =>
+											append({
+												name: '',
+												quantity: 0,
+												price: 0,
+												total: 0,
+											})
+										}
+										disabled={fields.length > 1}
+									>
+										+ Add new item
+									</button>
 								</div>
 							);
 						})}
-						<button
-							className="w-full justify-center mb-4 flex items-center bg-background-dark1 rounded-full py-3 text-light-gray font-bold text-sm"
-							onClick={() =>
-								append({
-									name: '',
-									quantity: 0,
-									price: 0,
-									total: 0,
-								})
-							}
-							disabled={fields.length > 1}
-						>
-							+ Add new item
-						</button>
 						<div className="flex items-center gap-2 my-4 justify-end">
-							<button className="mb-4 flex items-center bg-background-dark1 rounded-full px-10 py-3 text-white font-bold text-sm">
+							<button
+								className="mb-4 flex items-center bg-background-dark1 rounded-full px-10 py-3 text-white font-bold text-sm"
+								onClick={() => onGoBack()}
+							>
 								Cancel
 							</button>
 							<button className="mb-4 flex items-center bg-light-purple rounded-full px-4 py-3 text-white font-bold text-sm">

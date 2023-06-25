@@ -31,12 +31,9 @@ export const createInvoiceFormSchema = z.object({
 		country: z.string().nonempty({ message: 'Field must not be empty' }),
 		postCode: z.string().nonempty({ message: 'Field must not be empty' }),
 		street: z.string().nonempty({ message: 'Field must not be empty' }),
-		invoiceDate: z.coerce.string().nonempty({ message: 'Field must not be empty' }),
+		invoiceDate: z.coerce.date({ invalid_type_error: 'must be a date' }),
 		paymentTerm: paymentTermEnum,
-		description: z
-			.string()
-			.nonempty({ message: 'Field must not be empty' })
-			.nonempty({ message: 'Field must not be empty' }),
+		description: z.string().nonempty({ message: 'Field must not be empty' }),
 	}),
 	items: z.array(
 		z.object({
