@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { invoiceSchemaData } from '../../types/schema/index';
+import { createRandomId } from '@/utils/createRandomIdNotSoRandom';
 
 interface QueryParams {
 	status: string;
@@ -48,7 +49,7 @@ export const invoicesApi = createApi({
 			query: ({ payload }) => {
 				const payloadTransform = {
 					...payload,
-					id: 12,
+					id: createRandomId(),
 					createdAt: new Date(),
 					paymentDue: new Date(),
 					status: 'pending',

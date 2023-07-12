@@ -27,6 +27,7 @@ export const Input = <T extends FieldValues>(props: ExtendedUseControllerProps<T
 			<label htmlFor={props.name}>{props.displayName}</label>
 			<input
 				{...field}
+				id={props.name}
 				readOnly={props.readonly}
 				value={field.value as string}
 				className={`w-full border-[.5px] text-white p-2  rounded-sm ${isReadOnly} ${getErrorStyle}`}

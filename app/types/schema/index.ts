@@ -10,11 +10,7 @@ export const paymentTermEnum = z.enum([
 type paymentTermEnum = z.infer<typeof paymentTermEnum>;
 
 export const createInvoiceFormSchema = z.object({
-	id: z.number(),
-	createdAt: z.string(),
-	status: z.string(),
 	total: z.coerce.string(),
-	paymentDue: z.string(),
 	adress: z.object({
 		street: z.string().nonempty({ message: 'Field must not be empty' }),
 		city: z.string().nonempty({ message: 'Field must not be empty' }),
