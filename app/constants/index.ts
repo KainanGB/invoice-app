@@ -1,16 +1,21 @@
 const invoiceStatusColor = {
-	0: 'green',
-	1: 'warning',
-	2: 'white',
+	PAID: 'green',
+	PENDING: 'warning',
+	DRAFT: 'white',
 } as any;
 
-const invoiceStatusLabel = {
-	0: 'Paid',
-	1: 'Pending',
-	2: 'Draft',
+export const invoiceStatusLabel = {
+	PAID: 'Paid',
+	PENDING: 'Pending',
+	DRAFT: 'Draft',
 } as any;
 
-export const getInvoiceStatus = (id: number) => {
+type InvoiceStatusType = {
+	label: string;
+	color: string;
+};
+
+export const getInvoiceStatus = (id: string): InvoiceStatusType => {
 	return {
 		label: invoiceStatusLabel[id],
 		color: invoiceStatusColor[id],

@@ -1,0 +1,5 @@
+{
+	"/invoices": "/invoices",
+	"/invoices/id=:id": "/invoices?:id",
+	"/invoices/status=:status": "/invoices?:status"
+}

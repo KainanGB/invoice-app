@@ -1,0 +1,80 @@
+{
+	"invoices": [
+		{
+			"adress": {
+				"street": "Rua João Bernardino da Silva, 22",
+				"city": "São João Del Rei",
+				"postCode": "36309-328",
+				"country": "Brasil"
+			},
+			"client": {
+				"name": "ads",
+				"email": "kainan.contato@gmail.com",
+				"city": "São João Del Rei",
+				"country": "Brasil",
+				"postCode": "36309-328",
+				"street": "Rua João Bernardino da Silva, 22",
+				"invoiceDate": "2023-06-08",
+				"paymentTerm": "Next 1 Day",
+				"description": "ddsdsds"
+			},
+			"items": [
+				{
+					"name": "dsds",
+					"quantity": 545,
+					"price": 84,
+					"total": 45780
+				},
+				{
+					"name": "sssss",
+					"quantity": 222,
+					"price": 111,
+					"total": 24642
+				}
+			],
+			"id": 13,
+			"createdAt": "2023-06-20T18:23:41.364Z",
+			"paymentDue": "2023-06-20T18:23:41.364Z",
+			"status": "pending",
+			"total": 70422
+		},
+		{
+			"id": 12,
+			"createdAt": "2023-06-20T20:03:17.239Z",
+			"status": "paid",
+			"total": 459211368,
+			"paymentDue": "2023-06-20T20:03:17.239Z",
+			"adress": {
+				"street": "Rua dasdasdasdas dsds, 22",
+				"city": "São João Del Rei",
+				"postCode": "36309-328",
+				"country": "Brasil"
+			},
+			"client": {
+				"name": "ads",
+				"email": "kainan.contato@gmail.com",
+				"city": "São João Del Rei",
+				"country": "Brasil",
+				"postCode": "36309-328",
+				"street": "Rua João Bernardino da Silva, 22",
+				"invoiceDate": "2023-06-08",
+				"paymentTerm": "Next 1 Day",
+				"description": "ddsdsds"
+			},
+			"items": [
+				{
+					"name": "dsdsd",
+					"quantity": 54522,
+					"price": 8422,
+					"total": 459184284
+				},
+				{
+					"name": "dsd",
+					"quantity": 222,
+					"price": 122,
+					"total": 27084
+				}
+			]
+		}
+	]
+}

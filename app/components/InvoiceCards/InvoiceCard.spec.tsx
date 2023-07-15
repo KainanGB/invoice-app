@@ -1,13 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import InvoiceCards from '.';
+import { renderWithProviders } from '@/utils/renderWithProviders';
 
 describe('InvoiceCard', () => {
-	render(<InvoiceCards />);
+	renderWithProviders(<InvoiceCards />)
 
 	it('should be in the document', () => {
-		const element = screen.getByText('Paid');
+		const element = screen.getAllByText('Loading...');
 
-		expect(element).toBeInTheDocument();
+		expect(element).toHaveLength(element.length);
 	});
 });

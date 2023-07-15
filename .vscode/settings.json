@@ -1,0 +1,9 @@
+{
+	"prettier.useEditorConfig": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"prettier.requireConfig": true,
+	"prettier.configPath": ".prettierrc.json",
+	"prettier.tabWidth": 4,
+	"prettier.useTabs": true,
+	"vs-code-prettier-eslint.prettierLast": true
+}
