@@ -2,43 +2,27 @@
 
 import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
 import { useGetInvoiceQuery, useGetInvoicesQuery } from '@/redux/features/invoice-api-slice';
-
 import Skeleton from '../Skeleton';
 import { formatCurrency } from '@/helpers/formatter/formatCurrency';
 import { formatDate } from '@/helpers/formatter/formatDate';
-import { getInvoice } from '@/redux/features/invoice-slice';
-import { getInvoiceStatus } from '@/constants';
 import { increaseLimit } from '@/redux/features/filter-select.slice';
 import { useIsError } from '@/hooks/useIsError';
 import { useIsLoading } from '@/hooks/useIsLoading';
+import { InvoiceStatusLabel } from '../InvoiceStatusLabel';
+import { getInvoice } from '@/redux/features/invoice-slice';
+import Link from 'next/link';
 
-function InvoiceStatusLabel({ status }: { status: string }) {
-	const toUpperCaseStatus = status.toUpperCase();
-	const color = getInvoiceStatus(toUpperCaseStatus).color;
-	const label = getInvoiceStatus(toUpperCaseStatus).label;
-
-	return (
-		<div
-			className={`text-${color} bg-${color} bg-opacity-5 w-28 py-2 justify-center flex rounded-lg font-semibold`}
-		>
-			<span className="flex items-center">
-				<span className={`p-1 mr-2 rounded-full bg-${color}`}></span>
-				{label}
-			</span>
-		</div>
-	);
-}
+// #TODO FAZER ESSE COMPONENTE SER UM SERVER COMPONENT!!!!!
+// #TODO FAZER ESSE COMPONENTE SER UM SERVER COMPONENT!!!!!
 
 export default function InvoiceCards() {
 	const selectedFilter = useAppSelector(state => state.filterSelect.value);
 	const limit = useAppSelector(state => state.filterSelect.limit);
 	const { id, formType, isShowing } = useAppSelector(state => state.invoiceSelect);
-	const dispatch = useAppDispatch();
 
+	const dispatch = useAppDispatch();
 	const isLoading = useIsLoading();
 	const isError = useIsError();
-
-	const { data: single } = useGetInvoiceQuery({ id }, { skip: formType === 'new' });
 
 	const onFilterLimit = () => {
 		dispatch(increaseLimit(limit + 2));
@@ -65,29 +49,32 @@ export default function InvoiceCards() {
 		<>
 			{data &&
 				data?.map(item => (
-					<div
-						className="bg-background-dark1  text-white p-5 mt-5 rounded-lg border-2 border-background-dark2 hover:border-light-purple duration-300 cursor-pointer ease-linear"
-						key={item.id}
-						onClick={() => onClickInvoiceDetails(item.id)}
-					>
-						<div className="flex justify-between">
-							<div className="flex items-center text-purpleish font-bold">
-								# <span className="text-white font-semibold">{item.id}</span>
-							</div>
-							<span className="text-light-gray">{item.client.name}</span>
-						</div>
-
-						<div className="flex justify-between items-center mt-4">
-							<div className="flex flex-col">
-								<span className="text-light-gray">
-									{formatDate(item.paymentDue)}
-								</span>
-								<span className="font-bold ">{formatCurrency(+item.total)}</span>
+					<Link href={`/invoice/${item.id}`} key={item.id}>
+						<div
+							className="bg-background-dark1  text-white p-5 mt-5 rounded-lg border-2 border-background-dark2 hover:border-light-purple duration-300 cursor-pointer ease-linear"
+							onClick={() => onClickInvoiceDetails(item.id)}
+						>
+							<div className="flex justify-between">
+								<div className="flex items-center text-purpleish font-bold">
+									# <span className="text-white font-semibold">{item.id}</span>
+								</div>
+								<span className="text-light-gray">{item.client.name}</span>
 							</div>
 
-							<InvoiceStatusLabel status={item.status} />
+							<div className="flex justify-between items-center mt-4">
+								<div className="flex flex-col">
+									<span className="text-light-gray">
+										{formatDate(item.paymentDue)}
+									</span>
+									<span className="font-bold ">
+										{formatCurrency(+item.total)}
+									</span>
+								</div>
+
+								<InvoiceStatusLabel status={item.status} />
+							</div>
 						</div>
-					</div>
+					</Link>
 				))}
 
 			<div className="flex justify-center w-full mt-5">

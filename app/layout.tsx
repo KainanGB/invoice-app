@@ -14,10 +14,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<ReduxProvider>
 			<html lang="en" className="bg-background-dark2">
-					<body className={spartan.className}>
-						<Navbar />
-						{children}
-					</body>
+				<body className={spartan.className}>
+					<Navbar />
+					{children}
+				</body>
 			</html>
 		</ReduxProvider>
 	);

@@ -10,6 +10,7 @@ import { getInvoice } from '@/redux/features/invoice-slice';
 import { useEffect } from 'react';
 import {
 	useCreateNewInvoiceMutation,
+	useEditInvoiceMutation,
 	useGetInvoiceQuery,
 } from '@/redux/features/invoice-api-slice';
 import Skeleton from '../Skeleton';
@@ -21,8 +22,13 @@ export default function InvoiceForm() {
 	const { formType, id } = useAppSelector(state => state.invoiceSelect);
 
 	const [createNewInvoice] = useCreateNewInvoiceMutation({
+		fixedCacheKey: 'shared-create-invoices',
+	});
+
+	const [editInvoice] = useEditInvoiceMutation({
 		fixedCacheKey: 'shared-update-invoices',
 	});
+
 	const { handleSubmit, control, reset } = useForm<invoiceSchemaData>({
 		resolver: zodResolver(createInvoiceFormSchema),
 		defaultValues: {
@@ -35,6 +41,7 @@ export default function InvoiceForm() {
 				},
 			],
 		},
+		mode: 'onChange',
 	});
 
 	const { fields, append, remove } = useFieldArray({
@@ -63,7 +70,6 @@ export default function InvoiceForm() {
 				<Image className="mr-4" src={arrowLeft} alt="plus icon" height={12} />
 				Go Back
 			</button>
-
 			{!isFetching ? (
 				<>
 					<h1 className="text-white text-2xl font-bold mb-6">
@@ -71,6 +77,15 @@ export default function InvoiceForm() {
 					</h1>
 					<form
 						onSubmit={handleSubmit(d => {
+							if (formType === 'edit') {
+								const payload = {
+									...d,
+									id,
+								};
+								editInvoice({ payload });
+								return;
+							}
+
 							createNewInvoice({ payload: d });
 						})}
 						className="text-light-gray w-full "
@@ -81,45 +96,80 @@ export default function InvoiceForm() {
 							name="adress.street"
 							displayName="Street Address"
 							control={control}
+							defaultValue={''}
 						/>
 
 						<div className="flex items-center justify-between w-full gap-4">
-							<Input name="adress.city" displayName="City" control={control} />
+							<Input
+								name="adress.city"
+								displayName="City"
+								control={control}
+								defaultValue={''}
+							/>
 
 							<Input
 								name="adress.postCode"
 								displayName="Post Code"
 								control={control}
+								defaultValue={''}
 							/>
 						</div>
 
-						<Input name="adress.country" displayName="Country" control={control} />
+						<Input
+							name="adress.country"
+							displayName="Country"
+							control={control}
+							defaultValue={''}
+						/>
 
 						<h1 className="text-light-purple mb-2">Bill to</h1>
 
-						<Input name="client.name" displayName="Clint's Name" control={control} />
+						<Input
+							name="client.name"
+							displayName="Clint's Name"
+							control={control}
+							defaultValue={''}
+						/>
 
-						<Input name="client.email" displayName="Clint's Email" control={control} />
+						<Input
+							name="client.email"
+							displayName="Clint's Email"
+							control={control}
+							defaultValue={''}
+						/>
 
 						<Input
 							name="client.street"
 							displayName="Street Address"
 							control={control}
+							defaultValue={''}
 						/>
 
 						<div className="flex items-center justify-between w-full gap-4">
-							<Input name="client.city" displayName="City" control={control} />
+							<Input
+								name="client.city"
+								displayName="City"
+								control={control}
+								defaultValue={''}
+							/>
 							<Input
 								name="client.postCode"
 								displayName="Post Code"
 								control={control}
+								defaultValue={''}
 							/>
 						</div>
-						<Input name="client.country" displayName="Country" control={control} />
+						<Input
+							name="client.country"
+							displayName="Country"
+							control={control}
+							defaultValue={''}
+						/>
 						<Input
 							name="client.invoiceDate"
 							displayName="Invoice Date"
 							control={control}
+							defaultValue={''}
 						/>
 						<InputSelect
 							name="client.paymentTerm"
@@ -131,6 +181,7 @@ export default function InvoiceForm() {
 							name="client.description"
 							displayName="Project / Description"
 							control={control}
+							defaultValue={''}
 						/>
 
 						<h1 className="text-light-purple mb-2">Item List</h1>
@@ -141,6 +192,7 @@ export default function InvoiceForm() {
 										name={`items.${index}.name`}
 										displayName="Item Name"
 										control={control}
+										defaultValue={''}
 									/>
 
 									<div className="flex items-center justify-between w-full gap-4">
@@ -148,18 +200,21 @@ export default function InvoiceForm() {
 											name={`items.${index}.quantity`}
 											displayName="Quantity"
 											control={control}
+											defaultValue={''}
 										/>
 
 										<Input
 											name={`items.${index}.price`}
 											displayName="Price"
 											control={control}
+											defaultValue={''}
 										/>
 
 										<Input
 											name={`items.${index}.total`}
 											displayName="Total"
 											control={control}
+											defaultValue={''}
 											readonly={true}
 										/>
 

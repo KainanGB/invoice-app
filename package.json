@@ -10,7 +10,7 @@
 		"test": "jest --watchAll=false",
 		"watch": "jest --watch",
 		"prepare": "husky install",
-		"mock": "npx json-server mock/db.json --watch --delay 500 --routes  mock/routes.json --port 3005"
+		"mock": "npx json-server mock/db.json --port 3005 --watch --delay 500 --routes  mock/routes.json "
 	},
 	"dependencies": {
 		"@hookform/resolvers": "^3.1.1",

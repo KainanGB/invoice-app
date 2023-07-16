@@ -24,7 +24,7 @@ export default function ActionsMenu() {
 		dispatch(getInvoice({ id: 0, formType: 'new', isShowing: false }));
 	};
 
-	if (!isShowing) return <Skeleton/>;
+	if (!isShowing) return <Skeleton />;
 
 	return (
 		<>
