@@ -2,7 +2,7 @@
 import { useFieldArray, useForm, Controller, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createInvoiceFormSchema, invoiceSchemaData } from '@/types/schema';
-import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks/useRedux';
 import Image from 'next/image';
 import arrowLeft from '@/assets/icon-arrow-left.svg';
 import garbage from '@/assets/icon-delete.svg';

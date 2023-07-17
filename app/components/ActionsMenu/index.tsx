@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks/useRedux';
 
 import Filter from '../Filter';
 import Image from 'next/image';

@@ -1,5 +1,5 @@
 import { QueryStatus } from '@reduxjs/toolkit/dist/query';
-import { useAppSelector } from '../useRedux';
+import { useAppSelector } from '../../redux/hooks/useRedux';
 
 export const useIsError = () => {
 	return useAppSelector(state =>

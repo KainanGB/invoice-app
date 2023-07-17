@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { reset, select } from '@/redux/features/filter-select.slice';
-import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks/useRedux';
 
 import { FilterOptions } from '@/types';
 import Image from 'next/image';

@@ -63,7 +63,6 @@ export const invoicesApi = createApi({
 				};
 			},
 		}),
-
 		editInvoice: builder.mutation<any, { payload: any }>({
 			query: ({ payload }) => {
 				return {

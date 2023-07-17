@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppDispatch, useAppSelector } from '@/hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks/useRedux';
 import { useGetInvoiceQuery, useGetInvoicesQuery } from '@/redux/features/invoice-api-slice';
 import Skeleton from '../Skeleton';
 import { formatCurrency } from '@/helpers/formatter/formatCurrency';
@@ -18,7 +18,7 @@ import Link from 'next/link';
 export default function InvoiceCards() {
 	const selectedFilter = useAppSelector(state => state.filterSelect.value);
 	const limit = useAppSelector(state => state.filterSelect.limit);
-	const { id, formType, isShowing } = useAppSelector(state => state.invoiceSelect);
+	const { isShowing } = useAppSelector(state => state.invoiceSelect);
 
 	const dispatch = useAppDispatch();
 	const isLoading = useIsLoading();
@@ -26,10 +26,6 @@ export default function InvoiceCards() {
 
 	const onFilterLimit = () => {
 		dispatch(increaseLimit(limit + 2));
-	};
-
-	const onClickInvoiceDetails = (id: number) => {
-		dispatch(getInvoice({ id, formType: 'edit', isShowing: false }));
 	};
 
 	const { data: invoicesData } = useGetInvoicesQuery({
@@ -50,10 +46,7 @@ export default function InvoiceCards() {
 			{data &&
 				data?.map(item => (
 					<Link href={`/invoice/${item.id}`} key={item.id}>
-						<div
-							className="bg-background-dark1  text-white p-5 mt-5 rounded-lg border-2 border-background-dark2 hover:border-light-purple duration-300 cursor-pointer ease-linear"
-							onClick={() => onClickInvoiceDetails(item.id)}
-						>
+						<div className="bg-background-dark1  text-white p-5 mt-5 rounded-lg border-2 border-background-dark2 hover:border-light-purple duration-300 cursor-pointer ease-linear">
 							<div className="flex justify-between">
 								<div className="flex items-center text-purpleish font-bold">
 									# <span className="text-white font-semibold">{item.id}</span>
